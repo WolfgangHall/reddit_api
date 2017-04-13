@@ -1,10 +1,12 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 import sys
+
+# link account information dictionary file
 sys.path.insert(0, r'D:\app')
 from account_info import account
+
 
 class SendEmail:
 
@@ -31,5 +33,3 @@ class SendEmail:
         text = self.msg.as_string()
         self.server.sendmail(SendEmail.my_email, SendEmail.my_email, text)
         self.server.quit()
-
-

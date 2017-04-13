@@ -1,9 +1,11 @@
 import praw
+import sys
 from email_functionality import SendEmail
 
-import sys
+# link account information dictionary file
 sys.path.insert(0, r'D:\app')
 from account_info import account
+
 
 keywords = ['fresh']
 artists = ['drake', 'kendrick', 'lamar', 'kanye', 'west', 'frank', 'ocean', 'joey', 'bada$$']
@@ -23,20 +25,24 @@ def main():
 
 def process_submission(submission):
     normalized_title = submission.title.lower()
+    submission_url = submission.url
 
     for keyword in keywords:
         if check_fresh(normalized_title):
             if check_artist(normalized_title):
-                email = SendEmail(normalized_title, normalized_title)
+                # creation of SendEmail sends the email
+                new_email = SendEmail(normalized_title, submission_url)
                 break
 
 
+# checks for 'fresh' in submission title
 def check_fresh(title):
     for keyword in keywords:
         if keyword in title:
             return True
 
 
+# checks for select artist names in submission title
 def check_artist(title):
     for artist in artists:
         if artist in title:
